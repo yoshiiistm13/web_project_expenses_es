@@ -1,6 +1,6 @@
-budgetValue = 0;
-totalExpensesValue = 0;
-expenseEntries = [
+let budgetValue = 0;
+let totalExpensesValue = 0;
+let expenseEntries = [
   ["groceries", 33],
   ["restaurants", 50],
   ["transport", 12],
@@ -9,6 +9,8 @@ expenseEntries = [
   ["groceries", 28],
   ["subscriptions", 12],
 ];
+
+let balanceColor = "green";
 
 for (let i = 0; i < expenseEntries.length; i++) {
   totalExpensesValue += expenseEntries[i][1];
@@ -22,5 +24,20 @@ function calculateAverageExpense() {
 }
 
 function calculateBalance() {
-  return (calculateBalance = budgetValue - totalExpensesValue);
+  return budgetValue - totalExpensesValue;
+}
+
+function updateBalanceColor() {
+  const balance = calculateBalance();
+
+  if (balance < 0) {
+    // Saldo negativo = rojo
+    balanceColor = "red";
+  } else if (balance < budgetValue * 0.25) {
+    // Menos del 25% del presupuesto = naranja
+    balanceColor = "orange";
+  } else {
+    // Saldo saludable = verde (por defecto)
+    balanceColor = "green";
+  }
 }
