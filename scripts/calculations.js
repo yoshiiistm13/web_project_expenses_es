@@ -41,3 +41,12 @@ function updateBalanceColor() {
     balanceColor = "green";
   }
 }
+
+function calculateCategoryExpenses(category) {
+  let totalExpensesValue = 0;
+  for (let item of expenseEntries)
+    if (item[0] === category) {
+      totalExpensesValue += item[1];
+    }
+  return totalExpensesValue;
+}
