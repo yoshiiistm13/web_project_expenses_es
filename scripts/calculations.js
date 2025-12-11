@@ -1,3 +1,4 @@
+let budgetValue = 0;
 let totalExpensesValue = 0;
 let expenseEntries = [
   ["groceries", 33],
