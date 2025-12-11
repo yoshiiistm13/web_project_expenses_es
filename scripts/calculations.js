@@ -1,11 +1,18 @@
-let budgetValue = 0;
 let totalExpensesValue = 0;
-
+let expenseEntries = [
+  ["groceries", 33],
+  ["restaurants", 50],
+  ["transport", 12],
+  ["home", 70],
+  ["subscriptions", 14],
+  ["groceries", 28],
+  ["subscriptions", 12],
+];
 let balanceColor = "green";
 
+// Este bucle inicial suma los gastos iniciales
 for (let i = 0; i < expenseEntries.length; i++) {
   totalExpensesValue += expenseEntries[i][1];
-  //console.log("Valor total de los gastos: " + totalExpensesValue);
 }
 
 function calculateAverageExpense() {
@@ -22,36 +29,26 @@ function updateBalanceColor() {
   const balance = calculateBalance();
 
   if (balance < 0) {
-    // Saldo negativo = rojo
     balanceColor = "red";
   } else if (balance < budgetValue * 0.25) {
-    // Menos del 25% del presupuesto = naranja
     balanceColor = "orange";
   } else {
-    // Saldo saludable = verde (por defecto)
     balanceColor = "green";
   }
 }
 
+// *** FUNCIÓN CORREGIDA 1 ***
 function calculateCategoryExpenses(category) {
-  let totalExpensesValue = 0;
-  for (let item of expenseEntries)
+  let categoryTotal = 0; // Cambiado el nombre de la variable para evitar confusión global
+  for (let item of expenseEntries) {
     if (item[0] === category) {
-      totalExpensesValue += item[1];
+      categoryTotal += item[1];
     }
-  return totalExpensesValue;
+  }
+  return categoryTotal; // Devolvemos el total acumulado
 }
 
-let expenseEntries = [
-  ["groceries", 33],
-  ["restaurants", 50],
-  ["transport", 12],
-  ["home", 70],
-  ["subscriptions", 14],
-  ["groceries", 28],
-  ["subscriptions", 12],
-];
-
+// *** FUNCIÓN CORREGIDA 2 - Ajuste de inicialización ***
 function calculateLargestCategory() {
   let categoriesData = [];
   let categories = [
@@ -65,8 +62,11 @@ function calculateLargestCategory() {
   for (let category of categories) {
     categoriesData.push([category, calculateCategoryExpenses(category)]);
   }
+
+  // Inicializamos winnerNumber con un valor seguro (-Infinity)
+  // para que siempre capture el primer gasto real.
   let winnerCategory = "";
-  let winnerNumber = 0;
+  let winnerNumber = -Infinity;
 
   for (let i = 0; i < categoriesData.length; i++) {
     const currentData = categoriesData[i];
@@ -82,6 +82,7 @@ function calculateLargestCategory() {
   return winnerCategory;
 }
 
+// *** FUNCIÓN addExpenseEntry (ya estaba bien) ***
 function addExpenseEntry(expenseInput) {
   expenseEntries.push(expenseInput);
 
