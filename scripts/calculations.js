@@ -1,14 +1,5 @@
 let budgetValue = 0;
 let totalExpensesValue = 0;
-let expenseEntries = [
-  ["groceries", 33],
-  ["restaurants", 50],
-  ["transport", 12],
-  ["home", 70],
-  ["subscriptions", 14],
-  ["groceries", 28],
-  ["subscriptions", 12],
-];
 
 let balanceColor = "green";
 
@@ -49,4 +40,52 @@ function calculateCategoryExpenses(category) {
       totalExpensesValue += item[1];
     }
   return totalExpensesValue;
+}
+
+let expenseEntries = [
+  ["groceries", 33],
+  ["restaurants", 50],
+  ["transport", 12],
+  ["home", 70],
+  ["subscriptions", 14],
+  ["groceries", 28],
+  ["subscriptions", 12],
+];
+
+function calculateLargestCategory() {
+  let categoriesData = [];
+  let categories = [
+    "groceries",
+    "restaurants",
+    "transport",
+    "home",
+    "subscriptions",
+  ];
+
+  for (let category of categories) {
+    categoriesData.push([category, calculateCategoryExpenses(category)]);
+  }
+  let winnerCategory = "";
+  let winnerNumber = 0;
+
+  for (let i = 0; i < categoriesData.length; i++) {
+    const currentData = categoriesData[i];
+    const currentName = currentData[0];
+    const currentExpense = currentData[1];
+
+    if (currentExpense > winnerNumber) {
+      winnerNumber = currentExpense;
+      winnerCategory = currentName;
+    }
+  }
+
+  return winnerCategory;
+}
+
+function addExpenseEntry(expenseInput) {
+  expenseEntries.push(expenseInput);
+
+  const expenseAmount = expenseInput[1];
+
+  totalExpensesValue += expenseAmount;
 }
